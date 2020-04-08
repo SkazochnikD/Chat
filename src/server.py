@@ -32,6 +32,7 @@ class ServerProtocol(asyncio.Protocol):
                     if user.login == user_login:
                         self.transport.write("Пользователь с таким логином уже зарегистрирован\n".encode())
                         wrong_login=True
+                        self.transport.close()
                         break
                 if wrong_login == False:
                     self.login = decoded.replace("login:", "").replace("\r\n", "")
